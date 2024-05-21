@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -33,6 +32,16 @@ class TaskController {
         return "task/list";
 
     }
-
-
+    @GetMapping("/add")
+    String addTaskForm(Model model) {
+        model.addAttribute("newTask", new TaskDTO());
+        List<TaskStatusDTO> userTaskStatusList = taskStatusService.getUserTaskStatusList();
+        model.addAttribute("statusList", userTaskStatusList);
+        return "task/create";
+    }
+    @PostMapping("/add")
+    String addTask(@ModelAttribute("newTask") TaskDTO newTask) {
+        taskService.add(newTask);
+        return "redirect:/";
+    }
 }

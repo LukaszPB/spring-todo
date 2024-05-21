@@ -15,9 +15,9 @@
         <th scope="col">Summary</th>
         <th scope="col">Description</th>
         <th scope="col">Status</th>
-<!--        <th scope="col">Category</th>-->
-<!--        <th scope="col">Start date</th>-->
-<!--        <th scope="col">Due date</th>-->
+        <th scope="col">Category</th>
+        <th scope="col">Start date</th>
+        <th scope="col">Due date</th>
         <th scope="col">Delete</th>
     </tr>
     </thead>
@@ -26,13 +26,17 @@
         <th scope="row" th:text="${task.id}"></th>
         <td th:text="${task.summary}"></td>
         <td th:text="${task.description}"></td>
-        <td>
-            <form id="statusForm" name="statusForm" th:action="/task/status/${task.id}" method="post" onchange="submit()">
-                <select name="status">
-                    <option th:each="status: ${statusList}" th:value="${status.name}" th:text="${status.displayName}"></option>
-                </select>
-            </form>        
-        </td>
+        <td th:text="${task.status}"></td>
+        <td th:text="brak"></td>
+        <td th:text="${task.startDate}"></td>
+        <td th:text="${task.dueDate}"></td>
+<!--        <td>-->
+<!--            <form id="statusForm" name="statusForm" th:action="/task/status/${task.id}" method="post" onchange="submit()">-->
+<!--                <select name="status">-->
+<!--                    <option th:each="status: ${statusList}" th:value="${status.name}" th:text="${status.displayName}"></option>-->
+<!--                </select>-->
+<!--            </form>        -->
+<!--        </td>-->
     </tr>
     </tbody>
 </table>

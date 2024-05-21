@@ -1,10 +1,6 @@
 package com.zawadzkia.springtodo.task;
 
-import com.zawadzkia.springtodo.task.status.TaskStatusDTO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -13,6 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class TaskDTO implements Serializable {
     private Long id;
 
@@ -26,6 +23,5 @@ public class TaskDTO implements Serializable {
 
     private String attachment;
 
-    private TaskStatusDTO status;
-
+    private String status;
 }

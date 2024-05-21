@@ -4,10 +4,7 @@ import com.zawadzkia.springtodo.task.category.TaskCategoryModel;
 import com.zawadzkia.springtodo.task.status.TaskStatusModel;
 import com.zawadzkia.springtodo.user.UserModel;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Entity(name = "tasks")
 public class TaskModel {
 

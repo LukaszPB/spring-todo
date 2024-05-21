@@ -29,7 +29,7 @@ public class TaskService {
             TaskStatusModel status = taskModel.getStatus();
             TaskStatusDTO taskStatusDTO = new TaskStatusDTO(status.getId(), status.getName(), status.getDisplayName());
             TaskDTO taskDTO = new TaskDTO(taskModel.getId(), taskModel.getSummary(), taskModel.getDescription(),
-                    taskModel.getStartDate(), taskModel.getDueDate(), taskModel.getDescription(), taskStatusDTO);
+                    taskModel.getStartDate(), taskModel.getDueDate(), taskModel.getDescription(), taskStatusDTO.getName());
             result.add(taskDTO);
         });
         return result;
@@ -40,7 +40,7 @@ public class TaskService {
         TaskStatusModel status = taskModel.getStatus();
         TaskStatusDTO taskStatusDTO = new TaskStatusDTO(status.getId(), status.getName(), status.getDisplayName());
         TaskDTO taskDTO = new TaskDTO(taskModel.getId(), taskModel.getSummary(), taskModel.getDescription(),
-                taskModel.getStartDate(), taskModel.getDueDate(), taskModel.getDescription(), taskStatusDTO);
+                taskModel.getStartDate(), taskModel.getDueDate(), taskModel.getDescription(), taskStatusDTO.getName());
         return taskDTO;
     }
 
@@ -57,8 +57,22 @@ public class TaskService {
         taskModel.setStartDate(taskDTO.getStartDate());
         taskModel.setDueDate(taskDTO.getDueDate());
         taskModel.setAttachment(taskDTO.getAttachment());
-        taskModel.setStatus(taskStatusRepository.getReferenceById(taskDTO.getStatus().getId()));
+        taskModel.setStatus(taskStatusRepository.findByNameAndOwner(taskDTO.getStatus()
+                ,userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow()));
         taskRepository.save(taskModel);
     }
-
+    public void add(TaskDTO taskDTO) {
+        UserModel owner = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow();
+        TaskModel task = TaskModel.builder()
+                .summary(taskDTO.getSummary())
+                .description(taskDTO.getDescription())
+                .startDate(taskDTO.getStartDate())
+                .dueDate(taskDTO.getDueDate())
+                .attachment(taskDTO.getAttachment())
+                .category(null)
+                .status(taskStatusRepository.findByNameAndOwner(taskDTO.getStatus(),owner))
+                .owner(owner)
+                .build();
+        taskRepository.save(task);
+    }
 }

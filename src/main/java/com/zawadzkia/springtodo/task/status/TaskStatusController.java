@@ -19,7 +19,7 @@ public class TaskStatusController {
     @PostMapping(value = "/{id}")
     String updateTask(@PathVariable Long id, @ModelAttribute("status") TaskStatusDTO taskStatusDTO) {
         TaskDTO taskDTO = taskService.getTaskDTOById(id);
-        taskDTO.setStatus(taskStatusDTO);
+        taskDTO.setStatus(taskStatusDTO.getName());
         taskService.update(taskDTO);
         return "task/list";
     }
