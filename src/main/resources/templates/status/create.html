@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Create new status</h1>
+<fieldset th:fragment="task-form" class="card container w-25 mt-3">
+    <form method="post" th:action="@{/task/status/add}" th:object="${newStatus}">
+        <div class="card-body g-3 align-items-center">
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label for="name" class="col-form-label">Name</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label for="displayName" class="col-form-label">DisplayName</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" id="displayName" name="displayName" class="form-control" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-9">
+                </div>
+                <div class="col-sm-3">
+                    <input class="form-control" type="submit"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</fieldset>
+<form th:action="@{/task}" method="get">
+    <button type="submit">Back</button>
+</form>
+</body>
+</html>
