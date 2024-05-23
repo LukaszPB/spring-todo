@@ -41,6 +41,18 @@ class TaskController {
         taskService.add(newTask);
         return "redirect:/";
     }
+    @GetMapping("/update/{id}")
+    String updateTaskForm(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("updateTask", taskService.getTaskDTOById(id));
+        List<TaskStatusDTO> userTaskStatusList = taskStatusService.getUserTaskStatusList();
+        model.addAttribute("statusList", userTaskStatusList);
+        return "task/update";
+    }
+    @PostMapping("/update")
+    String updateTask(@ModelAttribute("updateTask") TaskDTO updateTask) {
+        taskService.update(updateTask);
+        return "redirect:/";
+    }
     @PostMapping("/delete/{id}")
     String deleteTask(@PathVariable("id") Long id) {
         taskService.delete(id);
