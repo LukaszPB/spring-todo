@@ -30,6 +30,11 @@
         <td th:text="brak"></td>
         <td th:text="${task.startDate}"></td>
         <td th:text="${task.dueDate}"></td>
+        <td>
+            <form th:action="@{/task/delete/{id}(id=${task.id})}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
 <!--        <td>-->
 <!--            <form id="statusForm" name="statusForm" th:action="/task/status/${task.id}" method="post" onchange="submit()">-->
 <!--                <select name="status">-->

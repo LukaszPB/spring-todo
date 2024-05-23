@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,6 +39,11 @@ class TaskController {
     @PostMapping("/add")
     String addTask(@ModelAttribute("newTask") TaskDTO newTask) {
         taskService.add(newTask);
+        return "redirect:/";
+    }
+    @PostMapping("/delete/{id}")
+    String deleteTask(@PathVariable("id") Long id) {
+        taskService.delete(id);
         return "redirect:/";
     }
 }
