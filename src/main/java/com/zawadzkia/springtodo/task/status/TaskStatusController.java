@@ -16,11 +16,11 @@ public class TaskStatusController {
     private final TaskStatusService taskStatusService;
 
     @PostMapping(value = "/{id}")
-    String updateTask(@PathVariable Long id, @ModelAttribute("status") TaskStatusDTO taskStatusDTO) {
+    String updateTask(@PathVariable Long id, @ModelAttribute("status") String statusName) {
         TaskDTO taskDTO = taskService.getTaskDTOById(id);
-        taskDTO.setStatus(taskStatusDTO.getName());
+        taskDTO.setStatus(statusName);
         taskService.update(taskDTO);
-        return "task/list";
+        return "redirect:/";
     }
     @GetMapping(value = "/add")
     String addTaskStatusForm(Model model) {
