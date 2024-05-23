@@ -1,7 +1,5 @@
 package com.zawadzkia.springtodo.task;
 
-import com.zawadzkia.springtodo.task.status.TaskStatusDTO;
-import com.zawadzkia.springtodo.task.status.TaskStatusModel;
 import com.zawadzkia.springtodo.task.status.TaskStatusRepository;
 import com.zawadzkia.springtodo.user.UserModel;
 import com.zawadzkia.springtodo.user.UserRepository;
@@ -26,10 +24,8 @@ public class TaskService {
         Set<TaskModel> tasks = user.getTasks();
         List<TaskDTO> result = new ArrayList<>();
         tasks.forEach(taskModel -> {
-            TaskStatusModel status = taskModel.getStatus();
-            TaskStatusDTO taskStatusDTO = new TaskStatusDTO(status.getId(), status.getName(), status.getDisplayName());
             TaskDTO taskDTO = new TaskDTO(taskModel.getId(), taskModel.getSummary(), taskModel.getDescription(),
-                    taskModel.getStartDate(), taskModel.getDueDate(), taskModel.getDescription(), taskStatusDTO.getName());
+                    taskModel.getStartDate(), taskModel.getDueDate(), taskModel.getDescription(), taskModel.getStatus().getName());
             result.add(taskDTO);
         });
         return result;
@@ -37,10 +33,8 @@ public class TaskService {
 
     public TaskDTO getTaskDTOById(Long id) {
         TaskModel taskModel = taskRepository.getReferenceById(id);
-        TaskStatusModel status = taskModel.getStatus();
-        TaskStatusDTO taskStatusDTO = new TaskStatusDTO(status.getId(), status.getName(), status.getDisplayName());
         TaskDTO taskDTO = new TaskDTO(taskModel.getId(), taskModel.getSummary(), taskModel.getDescription(),
-                taskModel.getStartDate(), taskModel.getDueDate(), taskModel.getDescription(), taskStatusDTO.getName());
+                taskModel.getStartDate(), taskModel.getDueDate(), taskModel.getDescription(), taskModel.getStatus().getName());
         return taskDTO;
     }
 

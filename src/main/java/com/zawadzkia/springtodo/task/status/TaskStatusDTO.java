@@ -1,9 +1,6 @@
 package com.zawadzkia.springtodo.task.status;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -11,6 +8,7 @@ import java.io.Serializable;
 @Setter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class TaskStatusDTO implements Serializable {
 
     private Long id;
