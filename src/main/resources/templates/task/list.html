@@ -18,6 +18,7 @@
         <th scope="col">Category</th>
         <th scope="col">Start date</th>
         <th scope="col">Due date</th>
+        <th scope="col">Update</th>
         <th scope="col">Delete</th>
     </tr>
     </thead>
@@ -30,6 +31,16 @@
         <td th:text="brak"></td>
         <td th:text="${task.startDate}"></td>
         <td th:text="${task.dueDate}"></td>
+        <td>
+            <form th:action="@{/task/update/{id}(id=${task.id})}" method="get">
+                <button type="submit">Update</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/task/delete/{id}(id=${task.id})}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
 <!--        <td>-->
 <!--            <form id="statusForm" name="statusForm" th:action="/task/status/${task.id}" method="post" onchange="submit()">-->
 <!--                <select name="status">-->

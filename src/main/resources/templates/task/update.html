@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Update task</h1>
+<fieldset th:fragment="task-form" class="card container w-25 mt-3">
+  <form method="post" th:action="@{/task/update}" th:object="${updateTask}">
+    <input type="hidden" id="id" name="id" th:value="${updateTask.id}"/>
+    <div class="card-body g-3 align-items-center">
+      <div class="row mb-3">
+        <div class="col-sm-3">
+          <label for="summary" class="col-form-label">Summary</label>
+        </div>
+        <div class="col-sm-9">
+          <input th:value="${updateTask.summary}" type="text" id="summary" name="summary" class="form-control" required>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-3">
+          <label for="description" class="col-form-label">Description</label>
+        </div>
+        <div class="col-sm-9">
+          <input th:value="${updateTask.description}" type="text" id="description" name="description" class="form-control" required>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-3">
+          <label for="startDate" class="col-form-label">Start date</label>
+        </div>
+        <div class="col-sm-9">
+          <input th:value="${updateTask.startDate}" type="datetime-local" id="startDate" name="startDate" class="form-control" required>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-3">
+          <label for="dueDate" class="col-form-label">Due date</label>
+        </div>
+        <div class="col-sm-9">
+          <input th:value="${updateTask.dueDate}" type="datetime-local" id="dueDate" name="dueDate" class="form-control" required>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-3">
+          <label for="attachment" class="col-form-label">Attachment</label>
+        </div>
+        <div class="col-sm-9">
+          <input th:value="${updateTask.attachment}" type="text" id="attachment" name="attachment" class="form-control" required>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-3">
+          <label for="status" class="col-form-label">Status</label>
+        </div>
+        <select id="status" name="status" class="form-control" th:field="*{status}" >
+          <option th:each="status : ${statusList}" th:value="${status.name}" th:text="${status.name}"></option>
+        </select>
+      </div>
+      <script>
+        var statusField = [[${updateTask.status}]];
+        document.getElementById('status').value = statusField;
+      </script>
+      <div class="row">
+        <div class="col-sm-9">
+        </div>
+        <div class="col-sm-3">
+          <input class="form-control" type="submit"/>
+        </div>
+      </div>
+    </div>
+  </form>
+</fieldset>
+<form th:action="@{/task}" method="get">
+  <button type="submit">Back</button>
+</form>
+</body>
+</html>

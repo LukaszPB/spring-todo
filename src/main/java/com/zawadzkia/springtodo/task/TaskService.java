@@ -75,4 +75,7 @@ public class TaskService {
                 .build();
         taskRepository.save(task);
     }
+    public void delete(Long id) {
+        taskRepository.delete(getTaskModelById(id));
+    }
 }
