@@ -1,5 +1,6 @@
 package com.zawadzkia.springtodo.task;
 
+import com.zawadzkia.springtodo.task.category.TaskCategoryService;
 import com.zawadzkia.springtodo.task.status.TaskStatusDTO;
 import com.zawadzkia.springtodo.task.status.TaskStatusService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,8 @@ class TaskController {
     private final TaskService taskService;
 
     private final TaskStatusService taskStatusService;
+
+    private final TaskCategoryService taskCategoryService;
 
     @GetMapping
     String getTaskList(Model model) {
