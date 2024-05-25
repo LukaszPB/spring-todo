@@ -2,16 +2,15 @@ package com.zawadzkia.springtodo.task.category;
 
 import com.zawadzkia.springtodo.user.UserModel;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "task_categories") @Table(uniqueConstraints = {
+@Builder
+@Entity(name = "task_categories")
+@Table(uniqueConstraints = {
         @UniqueConstraint(name = "uc_taskcategorymodel_name", columnNames = { "name", "owner_id" })
 })
 public class TaskCategoryModel {
@@ -19,10 +18,13 @@ public class TaskCategoryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = true)
     private String description;
+
     @Column(nullable = true)
     private String image;
 
