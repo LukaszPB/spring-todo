@@ -18,10 +18,17 @@ public class TaskCategoryController {
     private final TaskCategoryService taskCategoryService;
 
     @PostMapping(value = "/{id}")
-    String updateTask(@PathVariable Long id, @ModelAttribute("category") String statusName) {
+    String updateTask(@PathVariable Long id, @RequestParam("category") String categoryName) {
+        log.info("Received category: {}", categoryName);
         TaskDTO taskDTO = taskService.getTaskDTOById(id);
-        taskDTO.setStatus(statusName);
-        taskService.update(taskDTO);
+        if (taskDTO != null) {
+            taskDTO.setCategory(categoryName);
+            // Ensure other fields remain unchanged
+            taskDTO.setStatus(taskService.getTaskModelById(id).getStatus().getName());
+            taskService.update(taskDTO);
+        } else {
+            log.warn("Task with ID {} not found", id);
+        }
         return "redirect:/";
     }
 
@@ -33,7 +40,6 @@ public class TaskCategoryController {
 
     @PostMapping(value = "/add")
     String addTaskCategory(@ModelAttribute("newCategory") TaskCategoryDTO newCategory) {
-        System.out.println(newCategory);
         taskCategoryService.addCategory(newCategory);
         return "redirect:/";
     }

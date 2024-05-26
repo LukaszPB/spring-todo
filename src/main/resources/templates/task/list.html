@@ -28,10 +28,9 @@
         <td th:text="${task.summary}"></td>
         <td th:text="${task.description}"></td>
         <td>
-            <form id="statusForm" name="statusForm" th:action="@{/task/status/{id}(id=${task.id})}" method="post" onchange="submit()">
-                <select id="statusSelect" name="status">
-                    <option
-                            th:each="status: ${statusList}"
+            <form id="statusForm-[[${task.id}]]" name="statusForm" th:action="@{/task/status/{id}(id=${task.id})}" method="post">
+                <select id="statusSelect-[[${task.id}]]" name="status" onchange="this.form.submit()">
+                    <option th:each="status: ${statusList}"
                             th:value="${status.name}"
                             th:text="${status.displayName}"
                             th:selected="${status.name} == ${task.status}">
@@ -39,7 +38,20 @@
                 </select>
             </form>
         </td>
-        <td th:text="brak"></td>
+
+        <td>
+            <form id="categoryForm-[[${task.id}]]" name="categoryForm" th:action="@{/task/category/{id}(id=${task.id})}" method="post">
+                <select id="categorySelect-[[${task.id}]]" name="category" onchange="this.form.submit()">
+                    <option th:each="category: ${categoryList}"
+                            th:value="${category.name}"
+                            th:text="${category.name}"
+                            th:selected="${category.name} == ${task.category}">
+                    </option>
+                </select>
+            </form>
+        </td>
+
+        <!--        <td th:text="${task.category}"></td>-->
         <td th:text="${task.startDate}"></td>
         <td th:text="${task.dueDate}"></td>
         <td>

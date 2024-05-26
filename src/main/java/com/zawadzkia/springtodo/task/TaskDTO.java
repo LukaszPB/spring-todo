@@ -25,5 +25,5 @@ public class TaskDTO implements Serializable {
 
     private String status;
 
-    //private String category
+    private String category;
 }
