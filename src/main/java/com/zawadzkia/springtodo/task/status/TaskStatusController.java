@@ -22,9 +22,11 @@ public class TaskStatusController {
         log.info("Received status: {}", statusName);
         TaskDTO taskDTO = taskService.getTaskDTOById(id);
         if (taskDTO != null) {
+            System.out.println(taskDTO.getStatus());
+            System.out.println(taskDTO.getCategory());
             taskDTO.setStatus(statusName);
             // Ensure other fields remain unchanged
-            taskDTO.setCategory(taskService.getTaskModelById(id).getCategory().toString());
+            //taskDTO.setStatus(taskService.getTaskModelById(id).getStatus().getName());
             taskService.update(taskDTO);
         } else {
             log.warn("Task with ID {} not found", id);

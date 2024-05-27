@@ -34,6 +34,7 @@ class TaskController {
         model.addAttribute("tasks", taskList);
         model.addAttribute("statusList", userTaskStatusList);
         model.addAttribute("categoryList", userTaskCategoryList);
+        System.out.println(model.getAttribute("categoryList"));
         return "task/list";
 
     }

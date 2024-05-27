@@ -19,12 +19,12 @@ public class TaskCategoryController {
 
     @PostMapping(value = "/{id}")
     String updateTask(@PathVariable Long id, @RequestParam("category") String categoryName) {
-        log.info("Received category: {}", categoryName);
+        System.out.println("Received category: "+ categoryName);
         TaskDTO taskDTO = taskService.getTaskDTOById(id);
         if (taskDTO != null) {
             taskDTO.setCategory(categoryName);
             // Ensure other fields remain unchanged
-            taskDTO.setStatus(taskService.getTaskModelById(id).getStatus().getName());
+            //taskDTO.setCategory(taskService.getTaskModelById(id).getCategory().toString());
             taskService.update(taskDTO);
         } else {
             log.warn("Task with ID {} not found", id);

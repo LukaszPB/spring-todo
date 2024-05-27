@@ -26,8 +26,16 @@ public class TaskService {
         Set<TaskModel> tasks = user.getTasks();
         List<TaskDTO> result = new ArrayList<>();
         tasks.forEach(taskModel -> {
-            TaskDTO taskDTO = new TaskDTO(taskModel.getId(), taskModel.getSummary(), taskModel.getDescription(),
-                    taskModel.getStartDate(), taskModel.getDueDate(), taskModel.getDescription(), taskModel.getStatus().getName(),taskModel.getCategory().toString());
+            TaskDTO taskDTO = TaskDTO.builder()
+                    .id(taskModel.getId())
+                    .summary(taskModel.getSummary())
+                    .description(taskModel.getDescription())
+                    .startDate(taskModel.getStartDate())
+                    .dueDate(taskModel.getDueDate())
+                    .attachment(taskModel.getAttachment())
+                    .status(taskModel.getStatus().getName())
+                    .category(taskModel.getCategory().getName())
+                    .build();
             result.add(taskDTO);
         });
         return result;
@@ -36,7 +44,7 @@ public class TaskService {
     public TaskDTO getTaskDTOById(Long id) {
         TaskModel taskModel = taskRepository.getReferenceById(id);
         TaskDTO taskDTO = new TaskDTO(taskModel.getId(), taskModel.getSummary(), taskModel.getDescription(),
-                taskModel.getStartDate(), taskModel.getDueDate(), taskModel.getDescription(), taskModel.getStatus().getName(),taskModel.getCategory().toString());
+                taskModel.getStartDate(), taskModel.getDueDate(), taskModel.getDescription(), taskModel.getStatus().getName(),taskModel.getCategory().getName());
         return taskDTO;
     }
 
@@ -66,7 +74,7 @@ public class TaskService {
                 .startDate(taskDTO.getStartDate())
                 .dueDate(taskDTO.getDueDate())
                 .attachment(taskDTO.getAttachment())
-                .category(null)
+                .category(taskCategoryRepository.findByNameAndOwner(taskDTO.getCategory(),owner))
                 .status(taskStatusRepository.findByNameAndOwner(taskDTO.getStatus(),owner))
                 .category(taskCategoryRepository.findByNameAndOwner(taskDTO.getCategory(),owner))
                 .owner(owner)
