@@ -26,17 +26,17 @@ import java.util.Set;
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = true)
     @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     private String username;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private boolean enabled;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER)
