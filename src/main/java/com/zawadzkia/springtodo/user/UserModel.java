@@ -5,10 +5,7 @@ import com.zawadzkia.springtodo.task.TaskModel;
 import com.zawadzkia.springtodo.task.category.TaskCategoryModel;
 import com.zawadzkia.springtodo.task.status.TaskStatusModel;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.type.SqlTypes;
@@ -21,6 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Entity(name = "users")
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = "uc_usermodel_username", columnNames = { "username" })
@@ -28,17 +26,17 @@ import java.util.Set;
 public class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = true)
     @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     private String username;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private boolean enabled;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER)

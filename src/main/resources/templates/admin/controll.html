@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <title>User Management</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<nav th:replace="~{base :: navbar}"/>
+<div th:replace="~{auth/login :: login-form}"/>
+
+<div class="container">
+    <h1>User Management</h1>
+
+    <!-- Form to add a new user -->
+    <form th:action="@{/admin/add}" th:object="${newUser}" method="post" class="mb-4">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username:</label>
+            <input type="text" id="username" th:field="*{username}" class="form-control" required/>
+            <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="text" id="password" th:field="*{password}" class="form-control" required/>
+            <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Add User</button>
+    </form>
+
+    <!-- Table to display users -->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>password</th>
+            <th>enabled?</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.password}"></td>
+            <td th:text="${user.enabled}"></td>
+            <td>
+                <form th:action="@{/admin/delete/{id}(id=${user.id})}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

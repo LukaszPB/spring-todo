@@ -1,2 +1,4 @@
 # Project exclude paths
 /target/
+/.idea/vcs.xml
+/.idea/jpa-buddy.xml

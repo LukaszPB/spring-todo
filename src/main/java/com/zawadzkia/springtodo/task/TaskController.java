@@ -1,5 +1,6 @@
 package com.zawadzkia.springtodo.task;
 
+import com.zawadzkia.springtodo.task.category.TaskCategoryDTO;
 import com.zawadzkia.springtodo.task.category.TaskCategoryService;
 import com.zawadzkia.springtodo.task.status.TaskStatusDTO;
 import com.zawadzkia.springtodo.task.status.TaskStatusService;
@@ -27,8 +28,13 @@ class TaskController {
     String getTaskList(Model model) {
         List<TaskDTO> taskList = taskService.getTaskList();
         List<TaskStatusDTO> userTaskStatusList = taskStatusService.getUserTaskStatusList();
+
+        List<TaskCategoryDTO> userTaskCategoryList = taskCategoryService.getUserTaskCategoryList();
+
         model.addAttribute("tasks", taskList);
         model.addAttribute("statusList", userTaskStatusList);
+        model.addAttribute("categoryList", userTaskCategoryList);
+        System.out.println(model.getAttribute("categoryList"));
         return "task/list";
 
     }
@@ -36,7 +42,10 @@ class TaskController {
     String addTaskForm(Model model) {
         model.addAttribute("newTask", new TaskDTO());
         List<TaskStatusDTO> userTaskStatusList = taskStatusService.getUserTaskStatusList();
+        List<TaskCategoryDTO> userTaskCategoryList = taskCategoryService.getUserTaskCategoryList();
+
         model.addAttribute("statusList", userTaskStatusList);
+        model.addAttribute("categoryList", userTaskCategoryList);
         return "task/create";
     }
     @PostMapping("/add")
@@ -48,7 +57,10 @@ class TaskController {
     String updateTaskForm(Model model, @PathVariable("id") Long id) {
         model.addAttribute("updateTask", taskService.getTaskDTOById(id));
         List<TaskStatusDTO> userTaskStatusList = taskStatusService.getUserTaskStatusList();
+        List<TaskCategoryDTO> userTaskCategoryList = taskCategoryService.getUserTaskCategoryList();
+
         model.addAttribute("statusList", userTaskStatusList);
+        model.addAttribute("categoryList", userTaskCategoryList);
         return "task/update";
     }
     @PostMapping("/update")

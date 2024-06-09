@@ -50,6 +50,7 @@
           <input th:value="${updateTask.attachment}" type="text" id="attachment" name="attachment" class="form-control" required>
         </div>
       </div>
+
       <div class="row mb-3">
         <div class="col-sm-3">
           <label for="status" class="col-form-label">Status</label>
@@ -61,6 +62,20 @@
       <script>
         var statusField = [[${updateTask.status}]];
         document.getElementById('status').value = statusField;
+      </script>
+
+      <div class="row mb-3">
+        <div class="col-sm-3">
+          <label for="category" class="col-form-label">Category</label>
+        </div>
+        <select id="category" name="category" class="form-control" th:field="*{category}" >
+          <option th:each="category : ${categoryList}" th:value="${category.name}" th:text="${category.name}"></option>
+        </select>
+      </div>
+
+      <script>
+        var categoryField = [[${updateTask.category}]];
+        document.getElementById('category').value = categoryField;
       </script>
       <div class="row">
         <div class="col-sm-9">
